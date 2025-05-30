@@ -1,6 +1,8 @@
-import { YStack, H2, Separator, Theme } from 'tamagui';
+import { H2, Separator, Theme, YStack } from 'tamagui';
 
 import { EditScreenInfo } from './EditScreenInfo';
+import { Button } from '~/components/Button';
+import { useAuthStore } from '~/store/auth';
 
 type ScreenContentProps = {
   title: string;
@@ -9,6 +11,7 @@ type ScreenContentProps = {
 };
 
 export const ScreenContent = ({ title, path, children }: ScreenContentProps) => {
+  const signOut = useAuthStore((s) => s.signOut);
   return (
     <Theme name="light">
       <YStack flex={1} alignItems="center" justifyContent="center">
@@ -16,6 +19,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
         <Separator />
         <EditScreenInfo path={path} />
         {children}
+        <Button title={'Sign Out'} onPress={signOut} />
       </YStack>
     </Theme>
   );
